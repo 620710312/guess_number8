@@ -154,20 +154,16 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     var input = _inputstate;
                     int? guess = int.tryParse(input);
-                    if (guess == null) {
-                      setState(() {
-                        _message =  'ERROR กรอกข้อมูลไม่ถูกต้อง ให้กรอกเฉพาะตัวเลขเท่านั้น';
-                      });
-                    }
-                    late String message;
                     var guessResult = widget._game.doGuess(guess!);
                     if (guessResult > 0) {
                       setState(() {
                         _message = '$guess มากเกินไป กรุณาลองใหม่';
+                        _inputstate = _inputstate.substring(0, 0);
                       });
                     } else if (guessResult < 0) {
                       setState(() {
                         _message = '$guess น้อยเกินไป กรุณาลองใหม่';
+                        _inputstate = _inputstate.substring(0, 0);
                       });
                     } else {
                       setState(() {
@@ -175,6 +171,7 @@ class _HomePageState extends State<HomePage> {
                         '$guess เป็นคำตอบที่ถูกต้อง เก่งมาก กล้ามาก ขอบใจ🎉\n คุณทายทั้งหมด ${widget
                             ._game
                             .guessCount} ครั้ง';
+                        _inputstate = _inputstate.substring(0, 0);
                       });
                     }
 
